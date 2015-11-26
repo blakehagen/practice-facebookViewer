@@ -1,5 +1,3 @@
-# practice-facebookViewer
-
 FacebookViewer
 ==============
 
