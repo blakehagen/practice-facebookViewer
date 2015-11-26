@@ -9,7 +9,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// FacebookStrategy //
+// FACEBOOK STRATEGY //
 passport.use(new FacebookStrategy({
     clientID: '991918067535238',
     clientSecret: '41cc9fe52a3a581c0a08a96e763e38c9',
@@ -37,18 +37,20 @@ passport.deserializeUser(function (obj, done) {
     done(null, obj);
 })
 
+// AUTH ENDPOINTS //
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/api/me',
     failureRedirect: '/api/login'
 }))
 
+// MY INFO ENDPOINT //
 app.get('/api/me', function (req, res, next) {
     console.log('who dis? ' + req.user);
     res.json(req.user);
 });
 
-// Port //
+// PORT //
 var port = 3000;
 
 app.listen(port, function () {
