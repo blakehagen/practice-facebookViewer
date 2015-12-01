@@ -28,12 +28,10 @@ passport.use(new FacebookStrategy({
 }));
 
 passport.serializeUser(function (user, done) {
-    console.log('user ' + user);
     done(null, user);
 })
 
 passport.deserializeUser(function (obj, done) {
-    console.log('obj ' + obj)
     done(null, obj);
 })
 
@@ -49,12 +47,12 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/api/me',
     failureRedirect: '/api/login'
-}))
+}));
 
 // MY INFO ENDPOINT //
 app.get('/api/me', requireAuth, function (req, res, next) {
-    console.log('who dis? ' + req.user);
-    res.json(req.user);
+    var currentLoggedInUser = req.user;
+    res.send(currentLoggedInUser);
 });
 
 // PORT //
